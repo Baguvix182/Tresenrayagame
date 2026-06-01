@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package src.trabajofinalmodulo;
 
 trabajofinalmodulo
@@ -76,3 +77,5 @@ public class Audio {
         }
     }
 }
+=======
+>>>>>>> 203bc4f92d0988429bce8c92c0bf4a3ecabebac4
