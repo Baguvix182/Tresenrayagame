@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package trabajofinalmodulo;
 
 import java.awt.Color;
@@ -33,3 +34,5 @@ public class Colores {
     public static final Color TEXT_GRAY  = new Color(160, 160, 180);
 
 }
+=======
+>>>>>>> efd8b8a1baf9d789df3436f675090ae2429c7a46
