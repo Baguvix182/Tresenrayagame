@@ -1,4 +1,4 @@
- package trabajofinalmodulo;
+package trabajofinalmodulo;
 
 import java.util.Scanner;
 
@@ -6,13 +6,13 @@ import java.util.Scanner;
  * Clase principal de arranque del sistema.
  * Coordina la interfaz de consola del Instituto Nacional de Sonzacate.
  */
-public class Main {
+public class main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Logica logica = new Logica();
         int opcion = 0;
 
-        // INICIAMOS LA MÚSICA DE FONDO AL ABRIR LA APLICACIÓN
+       
         Audio.startBackgroundMusic();
 
         do {
@@ -46,7 +46,7 @@ public class Main {
                         scanner.nextLine(); scanner.nextLine();
                         break;
                     case 4:
-                        Audio.toggleMusic();
+                        Audio.toggleMusic(null); 
                         System.out.println(Colores.WIN_CLR + "\n  Configuración guardada exitosamente." + Colores.RESET);
                         esperar(1000);
                         break;
@@ -91,9 +91,12 @@ public class Main {
         System.out.println(Colores.O_CLR + "         DATOS DE LA ASIGNATURA         " + Colores.RESET);
         System.out.println(Colores.O_CLR + "========================================" + Colores.RESET);
         System.out.println("\n  " + Colores.YELLOW + "EQUIPO DESARROLLADOR:" + Colores.RESET);
+        
+        
         System.out.println("     " + Colores.TEXT_WHITE + "Andres Eduardo Marinero Cruz" + Colores.RESET);
         System.out.println("     " + Colores.TEXT_WHITE + "David Alejandro Escobar Cabrera" + Colores.RESET);
         System.out.println("     " + Colores.TEXT_WHITE + "Víctor Alexander Martínez Santacruz" + Colores.RESET);
+        
         System.out.println("\n  " + Colores.GREY + "Sonzacate, Sonsonate - El Salvador, 2026" + Colores.RESET);
         System.out.println(Colores.O_CLR + "========================================" + Colores.RESET);
     }

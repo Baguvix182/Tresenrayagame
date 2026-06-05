@@ -1,18 +1,21 @@
-<<<<<<< HEAD
-package src.trabajofinalmodulo;
+package trabajofinalmodulo;
 
-trabajofinalmodulo
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.DataLine;
+import javax.sound.sampled.SourceDataLine;
 
 public class Audio {
-    private boolean musicOn = false;
-    private Thread musicThread;
-    private volatile boolean musicRunning = false;
+    public static boolean musicOn = false;
+    private static Thread musicThread;
+    private static volatile boolean musicRunning = false;
+    private static final Audio instancia = new Audio(); // Instancia interna para hilos
 
     public boolean isMusicOn() { 
         return musicOn; 
     }
 
-    public void playTone(int freq, int ms) {
+    public static void playTone(int freq, int ms) {
         new Thread(() -> {
             try {
                 float sr = 44100f;
@@ -35,7 +38,7 @@ public class Audio {
         }).start();
     }
 
-    public void playWinSound() {
+    public static void playWinSound() {
         new Thread(() -> {
             int[] notes = {523, 659, 784, 1047};
             for (int note : notes) {
@@ -45,25 +48,32 @@ public class Audio {
         }).start();
     }
 
-    public void toggleMusic(Runnable onUpdateBtn) {
+    // Método que llamaba Main.java originalmente
+    public static void startBackgroundMusic() {
+        if (!musicOn) {
+            toggleMusic(null);
+        }
+    }
+
+    public static void toggleMusic(Runnable onUpdateBtn) {
         musicOn = !musicOn;
         if (onUpdateBtn != null) onUpdateBtn.run();
         
         if (musicOn) {
             musicRunning = true;
             musicThread = new Thread(() -> {
-                int[][] retroLoop = {
-                    {523, 160}, {659, 160}, {784, 160}, {659, 160},
-                    {587, 160}, {698, 160}, {880, 160}, {698, 160},
-                    {659, 160}, {784, 160}, {1047, 160}, {784, 160},
-                    {587, 320}, {494, 320},
-                    {523, 160}, {659, 160}, {784, 160}, {659, 160},
-                    {880, 320}, {784, 320}, {659, 320}, {523, 160},
-                    {587, 160}, {494, 160}, {440, 320}, {1, 160}
+                // Melodía calmada y relajada (ideal para pensar)
+                // Formato: {Frecuencia en Hz, Duración en ms}
+                int[][] calmLoop = {
+                    {261, 500}, {329, 500}, {392, 500}, {329, 500}, // Acorde de Do Mayor (C)
+                    {349, 500}, {440, 500}, {523, 500}, {440, 500}, // Acorde de Fa Mayor (F)
+                    {392, 500}, {493, 500}, {587, 500}, {493, 500}, // Acorde de Sol Mayor (G)
+                    {261, 1000}, {1, 500}                           // Resolución larga y pausa
                 };
+                
                 int step = 0;
                 while (musicRunning) {
-                    int[] note = retroLoop[step % retroLoop.length];
+                    int[] note = calmLoop[step % calmLoop.length];
                     playTone(note[0], note[1] - 15);
                     try { Thread.sleep(note[1]); } catch (InterruptedException e) { break; }
                     step++;
@@ -77,5 +87,3 @@ public class Audio {
         }
     }
 }
-=======
->>>>>>> 203bc4f92d0988429bce8c92c0bf4a3ecabebac4
