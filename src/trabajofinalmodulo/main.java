@@ -59,11 +59,9 @@ public class main {
                         System.out.println("\n" + Colores.WIN_CLR + "  Saliendo de forma segura. ¡Gracias por jugar!" + Colores.RESET);
                         break;
                     case 7:
-                        // CORRECCIÓN APLICADA AQUÍ
                         logica.iniciarJuegoRed(scanner, true, ""); 
                         break;
                     case 8:
-                        // CORRECCIÓN APLICADA AQUÍ
                         System.out.print("\n  Ingresa la IP del servidor (ej. 192.168.1.5 o localhost): ");
                         String ip = scanner.next();
                         logica.iniciarJuegoRed(scanner, false, ip); 

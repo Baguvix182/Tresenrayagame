@@ -101,9 +101,9 @@ public class Logica {
 
             out = new DataOutputStream(socket.getOutputStream());
             in = new DataInputStream(socket.getInputStream());
-            try { Thread.sleep(2000); } catch (InterruptedException e) {}
+            try { Thread.sleep(1500); } catch (InterruptedException e) {}
 
-            boolean miTurno = esServidor; // Servidor es X (juega primero), Cliente es O (espera)
+            boolean miTurno = esServidor; // Servidor (X) inicia, Cliente (O) espera
             String miFicha = esServidor ? "X" : "O";
 
             while (!gameOver) {
@@ -111,12 +111,12 @@ public class Logica {
                 imprimirTablero();
 
                 if (miTurno) {
-                    System.out.println("\n  " + Colores.WIN_CLR + "¡ES TU TURNO! Eres la ficha " + miFicha + Colores.RESET);
-                    System.out.print("  Elige una casilla (1-9): ");
+                    System.out.println("\n  " + Colores.WIN_CLR + "¡ES TU TURNO! Juegas con la ficha (" + miFicha + ")" + Colores.RESET);
+                    System.out.print("  Elige una casilla disponible (1-9): ");
                     
                     int index = leerEntradaNormal(scanner);
                     while (index < 0 || index >= 9 || board[index].equals("X") || board[index].equals("O")) {
-                        System.out.print(Colores.X_CLR + "  Casilla inválida. Intenta de nuevo: " + Colores.RESET);
+                        System.out.print(Colores.X_CLR + "  Casilla inválida u ocupada. Intenta de nuevo: " + Colores.RESET);
                         index = leerEntradaNormal(scanner);
                     }
                     
@@ -124,8 +124,8 @@ public class Logica {
                     out.writeInt(index); // Enviar movimiento por red
                     out.flush();
                 } else {
-                    System.out.println("\n  " + Colores.GREY + "Esperando el movimiento del oponente..." + Colores.RESET);
-                    int indexOponente = in.readInt(); // Esperar movimiento por red
+                    System.out.println("\n  " + Colores.GREY + "Esperando el turno del oponente (" + (miFicha.equals("X") ? "O" : "X") + ")..." + Colores.RESET);
+                    int indexOponente = in.readInt(); // Recibir movimiento por red
                     procesarMovimiento(indexOponente);
                 }
                 
@@ -134,7 +134,7 @@ public class Logica {
 
             socket.close();
         } catch (Exception e) {
-            System.out.println(Colores.X_CLR + "\n  Error de conexión. " + e.getMessage() + Colores.RESET);
+            System.out.println(Colores.X_CLR + "\n  Se ha perdido la conexión. " + e.getMessage() + Colores.RESET);
         }
         
         System.out.print("\nPresiona ENTER para retornar al Menú Principal...");
